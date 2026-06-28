@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "Token Copier",
+  "version": "1.0.0",
+  "description": "Copy bearer token from cookie (token) or API responses for web development/testing.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "lib/browser.js",
+      "lib/domain.js",
+      "lib/format.js",
+      "lib/token-source.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "lib/browser.js",
+        "lib/domain.js",
+        "lib/token.js",
+        "lib/swagger.js",
+        "lib/swagger-auth.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["lib/swagger-page-bridge.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Token Copier",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "token-copier@local.dev",
+      "strict_min_version": "109.0"
+    }
+  }
+}

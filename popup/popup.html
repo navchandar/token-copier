@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔑 Token Copier</h1>
+
+    <!-- Source selector -->
+    <div class="section">
+      <label for="source-select">Token Source</label>
+      <select id="source-select">
+        <option value="cookie">Stored Cookie</option>
+        <option value="response">Recent Response</option>
+      </select>
+    </div>
+
+    <!-- Cookie settings (shown when source = cookie) -->
+    <div class="section" id="cookie-section">
+      <label for="cookie-domain">Domain</label>
+      <input type="text" id="cookie-domain" placeholder="app.example.com" spellcheck="false">
+      <p class="hint">Hostname for cookie lookup. Auto-filled from the active tab on first use.</p>
+
+      <label for="cookie-name">Cookie Name</label>
+      <input type="text" id="cookie-name" placeholder="token" spellcheck="false">
+    </div>
+
+    <!-- Response settings (shown when source = response) -->
+    <div class="section hidden" id="response-section">
+      <label for="response-domain">Domain</label>
+      <input type="text" id="response-domain" placeholder="app.example.com" spellcheck="false">
+      <p class="hint">Hostname for response interception. Auto-filled from the active tab on first use.</p>
+
+      <label for="header-name">Response Header</label>
+      <input type="text" id="header-name" placeholder="authorization" spellcheck="false">
+      <p class="hint">Intercepts GET/POST request and response headers. Use the API host (e.g. api.example.com) or parent domain (example.com).</p>
+    </div>
+
+    <div class="section" id="swagger-section">
+      <label class="checkbox-row">
+        <input type="checkbox" id="swagger-auto-apply">
+        Auto-apply token to Swagger UI
+      </label>
+      <label for="swagger-scheme">Security scheme name (optional)</label>
+      <input type="text" id="swagger-scheme" placeholder="Bearer" spellcheck="false">
+      <p class="hint">Updates Swagger Authorize when the token changes. Leave blank to try common scheme names.</p>
+    </div>
+
+    <!-- Copy button -->
+    <button id="copy-btn" class="btn-primary">📋 Copy Token</button>
+
+    <!-- Token preview -->
+    <div id="token-preview" class="token-preview hidden">
+      <label>Preview</label>
+      <code id="preview-text"></code>
+    </div>
+
+    <!-- Status message -->
+    <div id="status" class="status hidden"></div>
+  </div>
+
+  <script src="../lib/browser.js"></script>
+  <script src="../lib/domain.js"></script>
+  <script src="../lib/format.js"></script>
+  <script src="../lib/token-source.js"></script>
+  <script src="../lib/token.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

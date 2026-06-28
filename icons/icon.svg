@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Token Copier">
+  <defs>
+    <linearGradient id="bg" x1="16" y1="8" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="55%" stop-color="#312E81"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="24" y1="36" x2="104" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF7C2"/>
+      <stop offset="38%" stop-color="#FFD54F"/>
+      <stop offset="72%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#F57C00"/>
+    </linearGradient>
+    <linearGradient id="gold-shine" x1="30" y1="34" x2="70" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <circle cx="98" cy="30" r="18" fill="#818CF8" opacity="0.22"/>
+  <circle cx="24" cy="104" r="14" fill="#6366F1" opacity="0.18"/>
+
+  <g filter="url(#soft-shadow)" transform="translate(64 66) rotate(-38) translate(-64 -66)">
+    <path
+      fill="url(#gold)"
+      fill-rule="evenodd"
+      d="
+        M 38 48
+        A 18 18 0 1 1 37.9 48
+        Z
+        M 38 57
+        A 9 9 0 1 0 38.1 57
+        Z
+        M 54 61
+        H 92
+        V 71
+        H 54
+        Z
+        M 74 71
+        H 84
+        V 83
+        H 74
+        Z
+        M 84 71
+        H 94
+        V 87
+        H 84
+        Z
+      "
+    />
+    <path
+      fill="url(#gold-shine)"
+      fill-rule="evenodd"
+      d="
+        M 38 48
+        A 18 18 0 1 1 37.9 48
+        Z
+        M 38 57
+        A 9 9 0 1 0 38.1 57
+        Z
+        M 54 61
+        H 82
+        V 69
+        H 54
+        Z
+      "
+    />
+  </g>
+
+  <rect x="78" y="88" width="28" height="20" rx="5" fill="#EEF2FF" opacity="0.92"/>
+  <rect x="82" y="92" width="14" height="2.5" rx="1.25" fill="#4338CA"/>
+  <rect x="82" y="97" width="20" height="2.5" rx="1.25" fill="#6366F1"/>
+  <rect x="82" y="102" width="17" height="2.5" rx="1.25" fill="#818CF8"/>
+</svg>
