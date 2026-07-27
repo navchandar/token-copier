@@ -1,145 +1,155 @@
-# 🔑 Token Copier
+# Token Copier
 
-A browser extension to copy auth token to the clipboard in one click — useful for Swagger UI, Postman, curl, and other API tools.
+A browser extension to copy your application's bearer token to the clipboard in one click - then paste it into Postman, curl, Swagger UI, or any API tool for testing purposes.
 
 Works in **Chrome**, **Edge**, **Brave**, and **Firefox**.
 
----
-
-## Quick start
-
-1. **Install** the extension 
-2. **Log in** to your app in the browser so a token cookie is set, or use a web app that sends tokens in API responses.
-3. Click the **🔑 Token Copier** extension icon in your toolbar.
-4. Pick how the token should be found (**Stored Cookie** or **Recent Response**).
-5. Click **📋 Copy Token** and paste where you need it.
-
+> **Use this extension for authorized development and testing only!** See [Disclaimer](#disclaimer) before use.
 
 ---
 
-## Features
+## Get started in 3 steps
 
-- **Copy token** — One click copies the bearer token to your clipboard.
-- **Method to read the token**
-  - **Stored Cookie** — Reads a cookie from the site you’re logged into (default cookie name: `token`).
-  - **Recent Response** — Watches API traffic and grabs the token from response headers.
-- **Expiry hint** — After copying, shows whether the token looks valid or expired (for JWT-style tokens).
-- **Swagger support** — Auto-applies the token on Swagger pages so **Try it out** requests include authorization automatically.
+1. **Install** the extension (see [Install](#install) below).
+2. **Log in** to your web app so a token is available (usually stored in a cookie).
+3. Click the **Token Copier** icon → **Copy Token** → paste wherever you need it.
+
+That's it for most apps. The extension remembers your settings for next time.
 
 ---
 
-## Dev Install
+## Install
 
 ### Chrome, Edge, or Brave
 
-1. Open your browser’s extensions page (`chrome://extensions` in Chrome).
+1. Open `chrome://extensions` (or your browser's extensions page).
 2. Turn on **Developer mode**.
-3. Click **Load unpacked** and choose the `token-copier` folder.
-4. Pin the **Token Copier** icon to your toolbar if you like.
+3. Click **Load unpacked** and select this `token-copier` folder.
+4. Pin **Token Copier** to your toolbar for quick access.
 
 ### Firefox
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on…**.
-3. Select `manifest.json` inside the `token-copier` folder.
+3. Choose `manifest.json` inside this folder.
 
-> Temporary add-ons in Firefox are removed when you restart the browser. For a permanent install, the extension needs to be packaged and signed for [Firefox Add-ons](https://addons.mozilla.org).
+> Temporary add-ons are removed when Firefox restarts. For a permanent install, the extension must be published on [Firefox Add-ons](https://addons.mozilla.org).
 
 ---
 
-## How to use
+## How it works
 
-### Cookie mode (most common)
+The popup gives you two ways to find a token. Pick the one that matches your app.
 
-Use this when your app stores the token in a browser cookie after login.
+### Stored Cookie *(default - use this first)*
 
-1. Open the extension popup while you’re on the app (or after logging in).
-2. Set **Token Source** to **Stored Cookie**.
-3. Check **Domain** — it’s usually filled in from the current tab (e.g. `app.example.com`).
-4. Set **Cookie Name** if your app uses something other than `token`.
-5. Click **📋 Copy Token**.
+Best when your app saves the token in a browser cookie after login.
 
-If copy fails, open DevTools → **Application** (Chrome) or **Storage** (Firefox) → **Cookies** and confirm the cookie name and domain.
+| Setting | What to enter |
+| -------- | -------------- |
+| **Domain** | Your app's hostname (e.g. `app.example.com`). Auto-filled from the current tab. |
+| **Cookie Name** | The cookie that holds the token. Default: `token`. |
 
-### Response mode
+**Steps**
 
-Use this when the token only appears in API response headers (not in a cookie).
+1. Log in to your app in the browser.
+2. Open the Token Copier popup.
+3. Confirm **Domain** and **Cookie Name** look right.
+4. Click **Copy Token**.
+
+**Tip:** Not sure of the cookie name? Open DevTools → **Application** (Chrome) or **Storage** (Firefox) → **Cookies** and look for your auth cookie.
+
+### Recent Response
+
+Best when the token only appears in API response headers - not in a cookie.
+
+| Setting | What to enter |
+| -------- | -------------- |
+| **Domain** | The API hostname (e.g. `api.example.com`). |
+| **Response Header** | The header that carries the token. Default: `authorization`. |
+
+**Steps**
 
 1. Set **Token Source** to **Recent Response**.
-2. Set **Domain** to the API host (e.g. `api.example.com`).
-3. Set **Response Header** if needed (default: `authorization`).
-4. Use the app so it makes a **GET** or **POST** request that returns the token.
-5. Click **📋 Copy Token**.
-
-### Swagger UI
-
-1. Turn on **Auto-apply token to Swagger UI** in the popup.
-2. Open your Swagger page (`app.com/swagger/`, etc.).
-3. The extension applies the token when it’s available. You can still use **Copy Token** anytime.
-
-**Optional:** **Security scheme name** — only if auto-apply doesn’t work. Use the exact name from your API spec (e.g. `BearerAuth`). Leave blank to try common names automatically.
-
-With **Auto-apply token to Swagger UI** enabled, you may see a **short red warning** when the token is expired.
+2. Enter the **Domain** and **Response Header**.
+3. Use the app so it makes a **GET** or **POST** request that returns the token.
+4. Click **Copy Token**.
 
 ---
 
-## Settings
+## Swagger UI
 
-| Setting | Default | What it means |
-| -------- | -------- | -------------- |
+Testing APIs in Swagger? Turn on **Auto-apply token to Swagger UI** in the popup.
+
+- The extension applies your token automatically when you open a Swagger page.
+- **Try it out** requests will include authorization without manual paste.
+- You can still click **Copy Token** anytime.
+
+**Security scheme name** - leave blank unless auto-apply fails. Then enter the exact name from your OpenAPI spec (e.g. `BearerAuth`).
+
+If your token is expired, you'll see a short warning on the Swagger page. Log in again and copy a fresh token.
+
+---
+
+## All settings
+
+| Setting | Default | Purpose |
+| -------- | -------- | -------- |
 | Token Source | Stored Cookie | Cookie vs API response |
-| Domain | *(from current tab)* | Which site to read the token from |
-| Cookie Name | `token` | Name of the auth cookie |
-| Response Header | `authorization` | Header to read in Response mode |
-| Auto-apply to Swagger | Off | Sends the token on Swagger API calls |
-| Security scheme name | *(blank)* | Swagger auth scheme name, if needed |
+| Domain | From current tab | Which site to read from |
+| Cookie Name | `token` | Auth cookie name |
+| Response Header | `authorization` | Header to capture in Response mode |
+| Auto-apply to Swagger | Off | Auto-authorize Swagger requests |
+| Security scheme name | *(blank)* | Swagger auth scheme, if needed |
 
-Cookie mode and Response mode each have their own domain. Subdomains are matched (e.g. `api.example.com` works with domain `example.com`).
+Settings save automatically. Cookie and Response modes each remember their own domain. Subdomains are matched - e.g. domain `example.com` also covers `api.example.com`.
+
+After copying, the popup shows a **preview** of the token and whether it looks **valid** or **expired** (for JWT-style tokens).
 
 ---
 
 ## Troubleshooting
 
-**“Token not found” or cookie errors**
+| Problem | What to try |
+| -------- | ------------ |
+| **Token not found** | Confirm you're logged in. Check cookie name and domain in DevTools. |
+| **Response mode finds nothing** | Trigger a GET/POST to the configured domain first. Try **Stored Cookie** if login happens via OAuth redirect. |
+| **Swagger returns 401** | Enable auto-apply. Make sure **Copy Token** works first. Set the security scheme name. Refresh the Swagger page. |
+| **Token marked expired** | Log in again, then copy a fresh token. |
+| **Unicode / ByteString error in Swagger** | Copy from this extension instead of email or docs - it copies plain text only. |
 
-- Make sure you’re logged in on the configured domain.
-- Check the cookie name in DevTools matches what you entered.
-- Confirm the **Domain** field matches the site that set the cookie.
+---
 
-**Response mode finds nothing**
+## Disclaimer
 
-- Use the app so it sends a **GET** or **POST** to the configured domain.
-- Confirm the response includes your header (e.g. `Authorization`) or sets the cookie you expect.
-- OAuth login pages often don’t return a token in headers — try **Stored Cookie** instead.
+**Intended use.** Token Copier is a developer and QA tool for **testing only**. Use it only on systems and accounts you own or are explicitly permitted to access. Do not use it to obtain credentials without authorization, bypass security controls, or access data you are not allowed to use.
 
-**Swagger still returns 401**
+**Your responsibility.** Authentication tokens are sensitive secrets. You are responsible for:
 
-- Enable **Auto-apply token to Swagger UI**.
-- Confirm **Copy Token** works first (you need a valid token).
-- Try setting **Security scheme name** to match your OpenAPI spec.
-- Refresh the Swagger page after changing settings.
+- Keeping copied tokens secure and not sharing them in unsafe places (chat, tickets, public repos, screen shares).
+- Following your organization's security policies, terms of service, and applicable laws.
+- Revoking or rotating tokens if they are exposed.
+- Confirming you have permission before copying or reusing tokens from any application.
 
-**Token copied but marked expired**
+**How data is handled.** The extension reads cookies or response headers **locally in your browser** to copy a token to your clipboard or apply it in Swagger UI. It does **not** send tokens or browsing data to the author or any third-party service.
 
-- Log in again to get a fresh token, then copy once more.
+**No guarantees.** Token preview and expiry hints (e.g. for JWT-style tokens) are **informational only** — they are not a security audit. The extension is provided **"as is"**, without warranty of any kind. See the [LICENSE](LICENSE) file for the full MIT license terms.
 
-**Pasting into Swagger caused a Unicode / ByteString error before**
+**Limitation of liability.** The authors and contributors are **not liable** for any misuse of this software, unauthorized access, data loss, security incidents, compliance violations, or damages arising from your use of copied tokens or this extension — whether that use is authorized or not.
 
-- Use **Copy Token** from this extension instead of copying from emails or docs — it copies plain text only.
+By installing or using Token Copier, you agree to these terms and accept full responsibility for how you use it.
 
 ---
 
 ## For developers
 
 <details>
-<summary><strong>Install for development</strong></summary>
-
-Same steps as [Install](#install) above. Reload the extension after code changes:
+<summary><strong>Reload after code changes</strong></summary>
 
 - **Chrome / Edge / Brave:** `chrome://extensions` → Reload on Token Copier.
 - **Firefox:** `about:debugging` → Reload.
 
-If you change `manifest.json` (permissions, scripts), remove and re-add the extension once.
+If you change `manifest.json`, remove and re-add the extension once.
 
 </details>
 
@@ -151,18 +161,15 @@ token-copier/
 ├── manifest.json
 ├── background.js              # Token interception + Swagger header injection
 ├── lib/
-│   ├── browser.js             # Chrome/Firefox compatibility helpers
-│   ├── domain.js              # Hostname matching, cookie URLs, Swagger detection
-│   ├── format.js              # Token/URL formatting, safe logging
+│   ├── browser.js             # Chrome/Firefox compatibility
+│   ├── domain.js              # Hostname matching, cookie URLs
+│   ├── format.js              # Token/URL formatting
 │   ├── token.js               # JWT/PASETO expiry detection
 │   ├── token-source.js        # Resolve token from cookie or storage
 │   ├── swagger.js             # Swagger UI helpers
 │   ├── swagger-auth.js        # Content script for Swagger auto-apply
 │   └── swagger-page-bridge.js # In-page bridge for Swagger authorize API
-├── popup/
-│   ├── popup.html
-│   ├── popup.css
-│   └── popup.js
+├── popup/                     # Extension popup UI
 └── icons/
 ```
 
@@ -173,48 +180,32 @@ token-copier/
 
 | Permission | Why |
 | ---------- | --- |
-| `cookies` | Read the auth cookie for the configured domain |
-| `storage` | Save your settings and intercepted tokens |
-| `webRequest` | Capture tokens from API response headers |
-| `webRequestBlocking` | Inject Authorization on Swagger requests (Firefox) |
-| `activeTab` / `tabs` | Pre-fill domain from the current tab; Swagger injection |
-| `<all_urls>` | Monitor requests on the domains you configure |
+| `cookies` | Read the auth cookie |
+| `storage` | Save settings and intercepted tokens |
+| `webRequest` | Capture tokens from response headers |
+| `activeTab` / `tabs` | Pre-fill domain from the current tab |
+| `<all_urls>` | Monitor requests on configured domains |
 
-Clipboard access does not need a separate permission — copy runs from the popup when you click the button.
+Clipboard access needs no extra permission - copy runs when you click the button in the popup.
 
 </details>
 
 <details>
-<summary><strong>Browser compatibility</strong></summary>
+<summary><strong>Browser notes</strong></summary>
 
-- **Chrome / Edge / Brave (121+):** Service worker background; response interception with `extraHeaders` where supported; Swagger auto-apply via page bridge.
-- **Firefox (109+):** Event-page background via `background.scripts`; blocking `webRequest` for Swagger `Authorization` injection; no `extraHeaders` on `onHeadersReceived`.
+- **Chrome / Edge / Brave (121+):** Service worker background; Swagger auto-apply via page bridge.
+- **Firefox (109+):** Event-page background; blocking `webRequest` for Swagger header injection.
 
-The manifest includes both `background.service_worker` and `background.scripts` so one build works in both families.
-
-**Swagger auto-apply:**
-
-| Browser | Page bridge (Authorize UI) | Network header injection |
-| -------- | --------------------------- | ------------------------- |
-| Firefox | Yes | Yes (when auto-apply is on) |
-| Chromium | Yes | Only if blocking webRequest is available |
+One build supports both - the manifest includes `background.service_worker` and `background.scripts`.
 
 </details>
 
 <details>
 <summary><strong>Debugging</strong></summary>
 
-Set `DEBUG = true` at the top of `background.js` for safe diagnostic logs (secrets are redacted).
+Set `DEBUG = true` at the top of `background.js` for diagnostic logs (secrets are redacted).
 
-**Swagger issues**
-
-- Page console (F12 on the Swagger tab): look for `[token-copier]` messages.
-- Background console: `about:debugging` (Firefox) or extension service worker “Inspect” (Chrome).
-
-**Common dev errors**
-
-- `background.service_worker is currently disabled` (Firefox) — Reload after pulling latest `manifest.json`; Firefox requires `background.scripts`.
-- `extraHeaders` invalid (Firefox) — Expected; Firefox uses `responseHeaders` only.
-- `swaggerAutoApply: false` after intercept — Fixed by preserving config when unrelated storage keys change; re-toggle auto-apply if on an old build.
+- **Swagger page:** browser console (F12) - look for `[token-copier]` messages.
+- **Background:** extension service worker "Inspect" (Chrome) or `about:debugging` (Firefox).
 
 </details>

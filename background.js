@@ -1,9 +1,9 @@
 /**
- * Service worker — intercepts GET/POST requests and responses for bearer tokens
+ * Service worker - intercepts GET/POST requests and responses for bearer tokens
  * on the configured response domain (Authorization header or Set-Cookie).
  */
 
-// Chrome MV3 service worker — load shared utils. Firefox loads them via manifest scripts.
+// Chrome MV3 service worker - load shared utils. Firefox loads them via manifest scripts.
 if (typeof importScripts === "function") {
   importScripts("lib/browser.js", "lib/domain.js", "lib/format.js", "lib/token-source.js");
 }
@@ -12,7 +12,7 @@ const browser = getBrowserApi();
 
 const ALLOWED_METHODS = new Set(["GET", "POST"]);
 
-/** Set to true only for local debugging — never logs full secrets. */
+/** Set to true only for local debugging - never logs full secrets. */
 const DEBUG = false;
 
 /** @type {{ headerName: string, cookieName: string, responseDomain: string }} */

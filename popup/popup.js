@@ -207,7 +207,7 @@ async function getActiveTabDomain() {
 function getConfiguredCookieDomain() {
   const domain = parseHostname(cookieDomainInput.value);
   if (!domain) {
-    throw new Error("Cookie domain is not configured — enter a hostname");
+    throw new Error("Cookie domain is not configured - enter a hostname");
   }
   return domain;
 }
@@ -220,7 +220,7 @@ function getConfiguredCookieDomain() {
 function getConfiguredResponseDomain() {
   const domain = parseHostname(responseDomainInput.value);
   if (!domain) {
-    throw new Error("Response domain is not configured — enter a hostname");
+    throw new Error("Response domain is not configured - enter a hostname");
   }
   return domain;
 }
@@ -293,7 +293,7 @@ async function getTokenFromResponse(domain) {
     }
 
     throw new Error(
-      `${status.requestCount} GET/POST request(s) seen for ${domain}, but no token in request/response "${headerName}" or Set-Cookie "${cookieName}". OAuth /token responses often return JSON only — use Cookie mode or an API call that sends Authorization. Last: ${status.lastMethod} ${truncateUrl(status.lastUrl)}`
+      `${status.requestCount} GET/POST request(s) seen for ${domain}, but no token in request/response "${headerName}" or Set-Cookie "${cookieName}". OAuth /token responses often return JSON only - use Cookie mode or an API call that sends Authorization. Last: ${status.lastMethod} ${truncateUrl(status.lastUrl)}`
     );
   } catch (err) {
     if (err instanceof Error) throw err;
