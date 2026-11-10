@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Token Copier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "navchandar",
-  "description": "Copy bearer token from cookie or API responses for web development/testing.",
+  "description": "Firefox extension to Copy bearer token from cookie or API responses for web development/testing.",
   "permissions": [
     "cookies",
     "storage",
